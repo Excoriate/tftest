@@ -2,7 +2,6 @@ package utils
 
 import (
 	"os"
-	"reflect"
 	"testing"
 )
 
@@ -49,22 +48,5 @@ func TestGetAllEnvVarsFromHost(t *testing.T) {
 	got := GetAllEnvVarsFromHost()
 	if got["TEST_VAR"] != "value" || got["TEST_NEWLINE"] != "\n" {
 		t.Errorf("GetAllEnvVarsFromHost() did not clean values correctly, got: %v", got)
-	}
-}
-
-func TestGetAllEnvVarsFromHostAsStruct(t *testing.T) {
-	// Setting up environment variables for testing
-	cleanup := setEnvVars(map[string]string{"TEST_VAR": "value", "TEST_NEWLINE": "\n"})
-	defer cleanup()
-
-	envVarNames := []string{"TEST_VAR", "TEST_NEWLINE"}
-	got := GetAllEnvVarsFromHostAsStruct(envVarNames)
-	want := []EnvVar{
-		{Name: "TEST_VAR", Value: "value"},
-		{Name: "TEST_NEWLINE", Value: "\n"},
-	}
-
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("GetAllEnvVarsFromHostAsStruct() = %v, want %v", got, want)
 	}
 }

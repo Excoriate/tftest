@@ -1,4 +1,4 @@
-package terratest_options
+package terratestopts
 
 import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
