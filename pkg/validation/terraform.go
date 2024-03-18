@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/excoriate/tftest/pkg/utils"
+	"github.com/Excoriate/tftest/pkg/utils"
 )
 
 func HasTerraformFiles(path string, extensions []string) error {

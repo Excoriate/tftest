@@ -4,9 +4,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/excoriate/tftest/pkg/cloudprovider"
-
-	"github.com/excoriate/tftest/pkg/validation"
+	"github.com/Excoriate/tftest/pkg/cloudprovider"
+	"github.com/Excoriate/tftest/pkg/validation"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"

@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/excoriate/tftest/pkg/scenario"
+	"github.com/Excoriate/tftest/pkg/scenario"
 )
 
 func TestSimpleOptionsPlanScenario(t *testing.T) {

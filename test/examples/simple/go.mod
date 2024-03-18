@@ -1,4 +1,4 @@
-module github.com/excoriate/excoriate/tftest/test/examples/simple
+module github.com/Excoriate/tftest/test/examples/simple
 
 go 1.22.1
 

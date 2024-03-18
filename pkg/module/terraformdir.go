@@ -2,7 +2,8 @@ package module
 
 import (
 	"fmt"
-	"github.com/excoriate/tftest/pkg/validation"
+
+	"github.com/Excoriate/tftest/pkg/validation"
 )
 
 func GetTerraformDir(path string) (string, error) {

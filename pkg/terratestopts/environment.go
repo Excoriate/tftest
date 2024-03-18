@@ -1,7 +1,7 @@
 package terratestopts
 
 import (
-	"github.com/excoriate/tftest/pkg/utils"
+	"github.com/Excoriate/tftest/pkg/utils"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
