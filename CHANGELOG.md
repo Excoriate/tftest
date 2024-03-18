@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/Excoriate/tftest/compare/v0.0.4...v0.0.5) (2024-03-18)
+
+
+### Refactoring
+
+* remove options creation on advanced options ([5cc9f6d](https://github.com/Excoriate/tftest/commit/5cc9f6da9b29417cf022e7df5c0a791bdfcd9bad))
+
 ## [0.0.4](https://github.com/Excoriate/tftest/compare/v0.0.3...v0.0.4) (2024-03-18)
 
 
