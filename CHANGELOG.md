@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6](https://github.com/Excoriate/tftest/compare/v0.0.5...v0.0.6) (2024-03-18)
+
+
+### Features
+
+* add paralellism as a built-in function into the client creation ([7e83867](https://github.com/Excoriate/tftest/commit/7e83867bbe03ff8b6732c41c17f840fccec6c09e))
+
 ## [0.0.5](https://github.com/Excoriate/tftest/compare/v0.0.4...v0.0.5) (2024-03-18)
 
 
