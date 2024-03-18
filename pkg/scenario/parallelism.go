@@ -1,4 +1,4 @@
-package common
+package scenario
 
 import (
 	"fmt"

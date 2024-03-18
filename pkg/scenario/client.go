@@ -19,6 +19,8 @@ type Options struct {
 	enableAWS bool
 	// awsRegion is the AWS region. If not set, it defaults to "us-west-2"
 	awsRegion string
+	// isParallel is a flag to enable parallelism
+	isParallel bool
 }
 
 type OptFn func(*Options) error
@@ -71,6 +73,13 @@ func WithAWS(region string) OptFn {
 	}
 }
 
+func WithParallel() OptFn {
+	return func(o *Options) error {
+		o.isParallel = true
+		return nil
+	}
+}
+
 func WithVarFiles(workdir string, varFiles ...string) OptFn {
 	return func(o *Options) error {
 		if err := validation.IsValidTFDir(workdir); err != nil {
@@ -96,14 +105,15 @@ func NewWithOptions(t *testing.T, workdir string, opts ...OptFn) (*Client, error
 		}
 	}
 
-	if err := validation.IsValidTFDir(workdir); err != nil {
+	tfDir, err := GetTerraformDir(t, workdir, o.isParallel)
+	if err != nil {
 		return nil, err
 	}
 
 	c := &Client{}
 
 	tfOptions := &terraform.Options{
-		TerraformDir: workdir,
+		TerraformDir: tfDir,
 		PlanFilePath: DefaultPlanOutput,
 		NoColor:      true,
 	}

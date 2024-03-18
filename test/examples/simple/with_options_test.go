@@ -36,3 +36,12 @@ func TestWithVarsValid(t *testing.T) {
 
 	s.Stg.PlanWithSpecificVariableValueToExpect(t, s.GetTerraformOptions(), "random_length_password", "10")
 }
+
+func TestWithParallelism(t *testing.T) {
+	workdir := "../../data/tf-random"
+	s, err := scenario.NewWithOptions(t, workdir, scenario.WithParallel())
+
+	assert.NoErrorf(t, err, "Failed to create scenario: %s", err)
+
+	s.Stg.PlanStage(t, s.GetTerraformOptions())
+}
