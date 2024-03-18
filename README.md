@@ -112,7 +112,7 @@ func TestWithVarOptionsValid(t *testing.T) {
 
 ```
 
-More examples will be added in the [examples](./examples) folder.
+More examples will be added in the [examples](./test/examples) folder.
 
 ---
 
