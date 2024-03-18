@@ -8,7 +8,6 @@ import (
 	"github.com/Excoriate/tftest/pkg/validation"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
 type Options struct {
@@ -130,7 +129,6 @@ func NewWithOptions(t *testing.T, workdir string, opts ...OptFn) (*Client, error
 	}
 
 	c.opts = tfOptions
-	test_structure.SaveTerraformOptions(t, workdir, c.opts)
 
 	return c, nil
 }
