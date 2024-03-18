@@ -148,7 +148,7 @@ func New(t *testing.T, workdir string) (*Client, error) {
 		PlanFilePath: "plan.out",
 	})
 
-	test_structure.SaveTerraformOptions(t, workdir, terraformOptions)
+	//test_structure.SaveTerraformOptions(t, workdir, terraformOptions)
 
 	return &Client{
 		t:    t,
