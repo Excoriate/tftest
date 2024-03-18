@@ -34,6 +34,7 @@ go get github.com/Excoriate/tftest
 ## Roadmap 🗓️
 
 - [ ] Add more tests
+- [ ] Add a set of pre-defined error messages
 
 >**Note**: This is still work in progress, however, I'll be happy to receive any feedback or contribution. Ensure you've read the [contributing guide](./CONTRIBUTING.md) before doing so.
 
