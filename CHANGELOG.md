@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.3](https://github.com/Excoriate/tftest/compare/v0.0.2...v0.0.3) (2024-03-18)
+
+
+### Other
+
+* amend 404 link on readme.md ([ef42f17](https://github.com/Excoriate/tftest/commit/ef42f17e66e6207e46679e5be8cb3fc78e47fd4b))
+
+
+### Refactoring
+
+* avoid naming collision on packages ([e930ccf](https://github.com/Excoriate/tftest/commit/e930ccf0d0ecf642e9a578f5bca2649d9ff904cf))
+
 ## [0.0.2](https://github.com/Excoriate/tftest/compare/v0.0.1...v0.0.2) (2024-03-18)
 
 
