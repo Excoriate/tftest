@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.4](https://github.com/Excoriate/tftest/compare/v0.0.3...v0.0.4) (2024-03-18)
+
+
+### Other
+
+* make golangci happy ([ce5d0bf](https://github.com/Excoriate/tftest/commit/ce5d0bfc88a6e04a007b7ba8d417efaf1cd4ae7b))
+* remove structure saving during initialization ([43a79b9](https://github.com/Excoriate/tftest/commit/43a79b9365b0ccfc378c4589621e601ba1ddfea4))
+
 ## [0.0.3](https://github.com/Excoriate/tftest/compare/v0.0.2...v0.0.3) (2024-03-18)
 
 
