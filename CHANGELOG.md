@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.0.8](https://github.com/Excoriate/tftest/compare/v0.0.7...v0.0.8) (2024-03-28)
+
+
+### Features
+
+* Improve Terraform variables and paths handling ([#12](https://github.com/Excoriate/tftest/issues/12)) ([48b0537](https://github.com/Excoriate/tftest/commit/48b05375d5de08ca7382740fcf02366663657afb))
+* **tfvars:** Add function to get .tfvars files from a directory ([#10](https://github.com/Excoriate/tftest/issues/10)) ([a01a7db](https://github.com/Excoriate/tftest/commit/a01a7db5e60a2e26a671ad2658bb04aad09eb323))
+
+
+### Refactoring
+
+* Refactor GetRelativePathFromGitRepo function signature and variable names ([#9](https://github.com/Excoriate/tftest/issues/9)) ([10bbfa5](https://github.com/Excoriate/tftest/commit/10bbfa54e9730870be9808fd512438d6b5a6d943))
+
 ## [0.0.7](https://github.com/Excoriate/tftest/compare/v0.0.6...v0.0.7) (2024-03-28)
 
 
