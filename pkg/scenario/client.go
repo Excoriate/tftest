@@ -1,9 +1,14 @@
 package scenario
 
 import (
+	"fmt"
 	"path/filepath"
 	"testing"
 	"time"
+
+	"github.com/Excoriate/tftest/pkg/utils"
+
+	"github.com/Excoriate/tftest/pkg/tfvars"
 
 	"github.com/Excoriate/tftest/pkg/cloudprovider"
 	"github.com/Excoriate/tftest/pkg/validation"
@@ -114,6 +119,38 @@ func WithVarFiles(workdir string, varFiles ...string) OptFn {
 		}
 
 		o.varFiles = varFiles
+		return nil
+	}
+}
+
+func WithScannedTFVars(workdir, fixturesDir string) OptFn {
+	return func(o *Options) error {
+		if err := validation.IsValidTFDir(workdir); err != nil {
+			return err
+		}
+
+		fixturesDirPath := filepath.Join(workdir, fixturesDir)
+
+		if err := validation.IsValidTFDir(fixturesDirPath); err != nil {
+			return err
+		}
+
+		hasTFVars, err := validation.HasTFVarFiles(fixturesDirPath)
+		if err != nil {
+			return err
+		}
+
+		if !hasTFVars {
+			return fmt.Errorf("the Terraform module %s with this fixtures directory %s does not have any .tfvars files", workdir, fixturesDir)
+		}
+
+		tfVarsPath, tfVarsErr := tfvars.GetTFVarsFromWorkdir(workdir)
+		if tfVarsErr != nil {
+			return tfVarsErr
+		}
+
+		o.varFiles = utils.MergeSlices(o.varFiles, tfVarsPath)
+
 		return nil
 	}
 }

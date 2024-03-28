@@ -79,3 +79,18 @@ func IsValidTFModuleDir(path string) error {
 
 	return nil
 }
+
+// HasTFVarFiles checks if the given directory has Terraform variable files.
+// If the directory does not have any Terraform variable files, it returns an error.
+func HasTFVarFiles(path string) (bool, error) {
+	if path == "" {
+		return false, nil
+	}
+
+	files, err := filepath.Glob(filepath.Join(path, "*.tfvars"))
+	if err != nil {
+		return false, fmt.Errorf("failed to list files in directory: %v", err)
+	}
+
+	return len(files) > 0, nil
+}
