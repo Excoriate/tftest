@@ -2,12 +2,10 @@ package scenario
 
 import (
 	"fmt"
-	"github.com/gruntwork-io/terratest/modules/git"
-	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
-	"os"
-	"path/filepath"
-	"strings"
 	"testing"
+
+	"github.com/Excoriate/tftest/pkg/tfdir"
+	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
 // SetupTerraformDirForParallelism sets up the Terraform directory for parallelism.
@@ -21,24 +19,10 @@ func SetupTerraformDirForParallelism(t *testing.T, tfDir string) (string, error)
 		return "", fmt.Errorf("tfDir is required")
 	}
 
-	// if the path is absolute we can just use it, otherwise we calculate the path relative to the git repo root
-	getRepoRoot := git.GetRepoRoot(t)
-	testDirRelPathFromGitRepo, err := resolveTfDir(tfDir, getRepoRoot)
+	testDirRelPathFromGitRepo, gitRepoRoot, err := tfdir.GetRelativePathFromGitRepo(tfDir, t)
 	if err != nil {
 		return "", fmt.Errorf("failed to resolve test directory: %v", err)
 	}
 
-	return test_structure.CopyTerraformFolderToTemp(t, getRepoRoot, testDirRelPathFromGitRepo), nil
-}
-
-func resolveTfDir(tfDir string, repoRoot string) (string, error) {
-	if !strings.HasPrefix(tfDir, "/") {
-		currentDir, _ := os.Getwd()
-		resolvedPath, err := filepath.Rel(repoRoot, filepath.Join(currentDir, tfDir))
-		if err != nil {
-			return "", fmt.Errorf("failed to get relative path to git repo: %v", err)
-		}
-		return resolvedPath, nil
-	}
-	return strings.TrimPrefix(tfDir, repoRoot), nil
+	return test_structure.CopyTerraformFolderToTemp(t, gitRepoRoot, testDirRelPathFromGitRepo), nil
 }
