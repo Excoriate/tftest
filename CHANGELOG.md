@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.7](https://github.com/Excoriate/tftest/compare/v0.0.6...v0.0.7) (2024-03-28)
+
+
+### Features
+
+* add support for absolute path in the setup terraform for parallelism ([#6](https://github.com/Excoriate/tftest/issues/6)) ([3cc6a3a](https://github.com/Excoriate/tftest/commit/3cc6a3ab2815c43593a3ba9edd97a0e377cfa2f5))
+
+
+### Refactoring
+
+* Update Terraform directory setup for parallelism ([#8](https://github.com/Excoriate/tftest/issues/8)) ([2d06eea](https://github.com/Excoriate/tftest/commit/2d06eea752b120d19063278ee6b3c623bbf3cbe3))
+
 ## [0.0.6](https://github.com/Excoriate/tftest/compare/v0.0.5...v0.0.6) (2024-03-18)
 
 
