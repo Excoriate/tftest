@@ -149,6 +149,11 @@ func WithScannedTFVars(workdir, fixturesDir string) OptFn {
 			return tfVarsErr
 		}
 
+		// Add the fixtures folder on each file
+		for i, tfVar := range tfVarsPath {
+			tfVarsPath[i] = filepath.Join(fixturesDir, tfVar)
+		}
+
 		o.varFiles = utils.MergeSlices(o.varFiles, tfVarsPath)
 
 		return nil
