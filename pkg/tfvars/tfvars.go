@@ -16,7 +16,7 @@ func GetTFVarsFromWorkdir(workdir string) ([]string, error) {
 	var tfvarFiles []string
 
 	// Use filepath.Walk to traverse the directory tree rooted at workdir
-	err := filepath.Walk(workdir, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(workdir, func(path string, _ os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}

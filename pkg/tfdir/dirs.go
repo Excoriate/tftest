@@ -14,7 +14,7 @@ import (
 // It is used to get the relative path to the git repo root for the Terraform directory.
 // If the Terraform directory is an absolute path, it returns the relative path to the git repo root.
 // If the Terraform directory is a relative path, it returns the relative path to the git repo root.
-func GetRelativePathFromGitRepo(tfDir string, t *testing.T) (relativePath string, repoRoot string, err error) {
+func GetRelativePathFromGitRepo(tfDir string, t *testing.T) (relativePath, repoRoot string, err error) {
 	if tfDir == "" {
 		return "", "", fmt.Errorf("tfDir is required")
 	}
