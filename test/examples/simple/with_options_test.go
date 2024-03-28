@@ -53,3 +53,11 @@ func TestWithRetryOptions(t *testing.T) {
 
 	s.Stg.PlanStage(t, s.GetTerraformOptions())
 }
+
+func TestWithScannedTFVars(t *testing.T) {
+	workdir := "../../data/tf-random"
+	s, err := scenario.NewWithOptions(t, workdir, scenario.WithScannedTFVars(workdir, "fixtures"))
+	assert.NoErrorf(t, err, "Failed to create scenario: %s", err)
+
+	s.Stg.PlanStage(t, s.GetTerraformOptions())
+}
