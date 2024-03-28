@@ -8,6 +8,8 @@ import (
 	"github.com/Excoriate/tftest/pkg/utils"
 )
 
+// HasTerraformFiles checks if the given directory has Terraform files with the given extensions.
+// If the directory does not have any Terraform files with the given extensions, it returns an error.
 func HasTerraformFiles(path string, extensions []string) error {
 	files, err := filepath.Glob(filepath.Join(path, path, "*"))
 	if err != nil {
@@ -25,6 +27,8 @@ func HasTerraformFiles(path string, extensions []string) error {
 	return nil
 }
 
+// IsValidTFDir checks if the given path is a valid Terraform directory.
+// A valid Terraform directory is a directory that exists and is not empty.
 func IsValidTFDir(path string) error {
 	tfDirInfo, err := os.Stat(path)
 	if os.IsNotExist(err) {
@@ -38,6 +42,8 @@ func IsValidTFDir(path string) error {
 	return nil
 }
 
+// IsValidTFVarFile checks if the given path is a valid Terraform variable file.
+// A valid Terraform variable file is a file with the .tfvars extension that is not empty.
 func IsValidTFVarFile(path string) error {
 	fileInfo, err := os.Stat(path)
 	if os.IsNotExist(err) {
@@ -54,6 +60,21 @@ func IsValidTFVarFile(path string) error {
 
 	if err := utils.FileHasContent(path); err != nil {
 		return fmt.Errorf("the terraform variable file is empty: %s", path)
+	}
+
+	return nil
+}
+
+// IsValidTFModuleDir checks if the given path is a valid Terraform module directory.
+// A valid Terraform module directory is a directory that contains at least one Terraform file with the .tf extension.
+// The path must also be a valid directory.
+func IsValidTFModuleDir(path string) error {
+	if err := IsValidTFDir(path); err != nil {
+		return err
+	}
+
+	if err := HasTerraformFiles(path, []string{".tf"}); err != nil {
+		return err
 	}
 
 	return nil

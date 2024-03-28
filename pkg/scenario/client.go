@@ -3,6 +3,7 @@ package scenario
 import (
 	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/Excoriate/tftest/pkg/cloudprovider"
 	"github.com/Excoriate/tftest/pkg/validation"
@@ -21,6 +22,14 @@ type Options struct {
 	awsRegion string
 	// isParallel is a flag to enable parallelism
 	isParallel bool
+	// retryOptions
+	retryOptions *retryableOptions
+}
+
+type retryableOptions struct {
+	retryableErrors    map[string]string
+	timeBetweenRetries time.Duration
+	maxRetries         int
 }
 
 type OptFn func(*Options) error
@@ -68,6 +77,18 @@ func WithAWS(region string) OptFn {
 
 		o.enableAWS = true
 		o.awsRegion = region
+
+		return nil
+	}
+}
+
+func WithRetry(retryableErrors map[string]string, timeBetweenRetries time.Duration, maxRetries int) OptFn {
+	return func(o *Options) error {
+		o.retryOptions = &retryableOptions{
+			retryableErrors:    retryableErrors,
+			timeBetweenRetries: timeBetweenRetries,
+			maxRetries:         maxRetries,
+		}
 
 		return nil
 	}
@@ -138,6 +159,12 @@ func NewWithOptions(t *testing.T, workdir string, opts ...OptFn) (*Client, error
 		tfOptions.VarFiles = o.varFiles
 	}
 
+	if o.retryOptions != nil {
+		tfOptions.RetryableTerraformErrors = o.retryOptions.retryableErrors
+		tfOptions.TimeBetweenRetries = o.retryOptions.timeBetweenRetries
+		tfOptions.MaxRetries = o.retryOptions.maxRetries
+	}
+
 	c.opts = tfOptions
 
 	return c, nil
@@ -146,7 +173,7 @@ func NewWithOptions(t *testing.T, workdir string, opts ...OptFn) (*Client, error
 // New creates a new Terraform options with default retryable errors and saves it to the workdir
 // This is a wrapper around terraform.WithDefaultRetryableErrors
 func New(t *testing.T, workdir string) (*Client, error) {
-	if err := validation.IsValidTFDir(workdir); err != nil {
+	if err := validation.IsValidTFModuleDir(workdir); err != nil {
 		return nil, err
 	}
 

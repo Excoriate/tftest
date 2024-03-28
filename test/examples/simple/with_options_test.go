@@ -45,3 +45,11 @@ func TestWithParallelism(t *testing.T) {
 
 	s.Stg.PlanStage(t, s.GetTerraformOptions())
 }
+
+func TestWithRetryOptions(t *testing.T) {
+	workdir := "../../data/tf-random"
+	s, err := scenario.NewWithOptions(t, workdir, scenario.WithRetry(map[string]string{"Error": "Error"}, 5, 3))
+	assert.NoErrorf(t, err, "Failed to create scenario: %s", err)
+
+	s.Stg.PlanStage(t, s.GetTerraformOptions())
+}
