@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.9](https://github.com/Excoriate/tftest/compare/v0.0.8...v0.0.9) (2024-04-01)
+
+
+### Features
+
+* Add function to check if a directory is a git repository ([#13](https://github.com/Excoriate/tftest/issues/13)) ([6ad6ec0](https://github.com/Excoriate/tftest/commit/6ad6ec0d8c40d7f86bc603dd2df3becd1babe8cb))
+
 ## [0.0.8](https://github.com/Excoriate/tftest/compare/v0.0.7...v0.0.8) (2024-03-28)
 
 
