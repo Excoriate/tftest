@@ -7,6 +7,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.27.7
 	github.com/aws/aws-sdk-go-v2/service/sns v1.29.2
 	github.com/aws/aws-sdk-go-v2/service/sqs v1.31.2
+	github.com/google/go-github/v60 v60.0.0
 	github.com/gruntwork-io/terratest v0.46.11
 	github.com/hashicorp/terraform-json v0.13.0
 	github.com/stretchr/testify v1.8.4
@@ -47,7 +48,8 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/gnostic-models v0.6.8 // indirect
-	github.com/google/go-cmp v0.5.9 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.2.3 // indirect
