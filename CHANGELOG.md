@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.10](https://github.com/Excoriate/tftest/compare/v0.0.9...v0.0.10) (2024-04-02)
+
+
+### Features
+
+* Add test for ProcessTemplFile function ([#15](https://github.com/Excoriate/tftest/issues/15)) ([064c951](https://github.com/Excoriate/tftest/commit/064c951ab491b8a5c845c231cb678aedcc6df394))
+
 ## [0.0.9](https://github.com/Excoriate/tftest/compare/v0.0.8...v0.0.9) (2024-04-01)
 
 
