@@ -8,7 +8,7 @@ import (
 
 // IsAGitRepository checks if the given directory or any of its parent directories up to `levels` is a git repository.
 // It returns the git root directory, the subdirectory passed relative to the git root, and any error encountered.
-func IsAGitRepository(repoRoot string, levels int) (gitRoot string, subDir string, err error) {
+func IsAGitRepository(repoRoot string, levels int) (gitRoot, subDir string, err error) {
 	if repoRoot == "" {
 		return "", "", fmt.Errorf("directory path cannot be empty")
 	}
