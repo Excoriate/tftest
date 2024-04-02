@@ -36,16 +36,16 @@ func FetchReleases(repoURL string, onlyLatest bool) ([]*github.RepositoryRelease
 		return []*github.RepositoryRelease{release}, nil
 	}
 
-	releases, _, err := client.Repositories.ListReleases(ctx, owner, repo, &github.ListOptions{})
-	if err != nil {
-		return nil, fmt.Errorf("error fetching releases: %w", err)
+	releases, _, releaseErr := client.Repositories.ListReleases(ctx, owner, repo, &github.ListOptions{})
+	if releaseErr != nil {
+		return nil, fmt.Errorf("error fetching releases: %w", releaseErr)
 	}
 
 	return releases, nil
 }
 
 // GetOwnerAndRepoFromURL extracts the owner and repo name from a GitHub URL
-func GetOwnerAndRepoFromURL(repoURL string) (string, string, error) {
+func GetOwnerAndRepoFromURL(repoURL string) (owner, repo string, err error) {
 	u, err := url.Parse(repoURL)
 	if err != nil {
 		return "", "", fmt.Errorf("error parsing URL: %w", err)
