@@ -45,6 +45,7 @@ type Stage interface {
 	PlanWithResourcesExpectedToBeDeleted(t *testing.T, options *terraform.Options, resources []string)
 	PlanWithResourcesExpectedToBeUpdated(t *testing.T, options *terraform.Options, resources []string)
 	PlanWithSpecificVariableValueToExpect(t *testing.T, options *terraform.Options, variable, value string)
+	PlanAndAssertJSONWithJSONPath(t *testing.T, options *terraform.Options, testCases []JSONPathTestCases)
 }
 
 func (c *StageClient) DestroyStage(t *testing.T, options *terraform.Options) {
