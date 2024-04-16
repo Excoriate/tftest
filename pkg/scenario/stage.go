@@ -215,7 +215,7 @@ func (c *StageClient) PlanAndAssertJSONWithJSONPath(t *testing.T, options *terra
 	}
 }
 
-func applyTestType(t *testing.T, testType TestType, actual interface{}, expected interface{}, additionalMessage string) {
+func applyTestType(t *testing.T, testType TestType, actual, expected interface{}, additionalMessage string) {
 	switch testType {
 	case ShouldContain:
 		msg := fmt.Sprintf("Output did not contains the expected value. Expected: %v, Actual: %v, %s", expected, actual, additionalMessage)
