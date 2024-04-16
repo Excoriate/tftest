@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.12](https://github.com/Excoriate/tftest/compare/v0.0.11...v0.0.12) (2024-04-16)
+
+
+### Other
+
+* adding S3 client aws cloud provider ([#22](https://github.com/Excoriate/tftest/issues/22)) ([36950d4](https://github.com/Excoriate/tftest/commit/36950d4f594bac5d80c51f312ad8db42b297cec1))
+
 ## [0.0.11](https://github.com/Excoriate/tftest/compare/v0.0.10...v0.0.11) (2024-04-16)
 
 
