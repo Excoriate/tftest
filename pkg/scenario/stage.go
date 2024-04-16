@@ -1,6 +1,9 @@
 package scenario
 
 import (
+	"fmt"
+	"github.com/gruntwork-io/terratest/modules/k8s"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"strconv"
 	"testing"
@@ -12,6 +15,22 @@ import (
 )
 
 type StageClient struct{}
+
+type TestType int
+
+const (
+	ShouldContain = iota
+	ShouldNOTContain
+	ShouldBeEqual
+)
+
+type JsonPathTestCases struct {
+	TestName           string
+	ExpectedValue      interface{}
+	JsonPathToCompare  string
+	AllowDifferentType bool
+	TestType           TestType
+}
 
 type Stage interface {
 	DestroyStage(t *testing.T, options *terraform.Options)
@@ -164,6 +183,50 @@ func (c *StageClient) PlanWithSpecificVariableValueToExpect(t *testing.T, option
 
 	actualValue := variableFromPlan.Value
 	compareValues(t, actualValue, expectedValue, variable)
+}
+
+// PlanAndAssertJsonWithJsonPath performs JSON path planning and assertion in Go testing.
+//
+// t *testing.T: Testing object
+// options *terraform.Options: Terraform options
+// testCases []JsonPathTestCases: Array of JSON path test cases
+func (c *StageClient) PlanAndAssertJsonWithJsonPath(t *testing.T, options *terraform.Options, testCases []JsonPathTestCases) {
+	jsonPlan := terraform.InitAndPlanAndShow(t, options)
+
+	for _, testCase := range testCases {
+		t.Run(testCase.TestName, func(t *testing.T) {
+			var result []interface{}
+			k8s.UnmarshalJSONPath(t, []byte(jsonPlan), testCase.JsonPathToCompare, &result)
+			assert.NotNil(t, result)
+
+			// if expected is slice then it's ok to compare entire slice
+			if reflect.TypeOf(testCase.ExpectedValue).Kind() == reflect.Slice {
+				assert.ObjectsAreEqual(testCase.ExpectedValue, result)
+			} else {
+				// work on the result[0]
+				t.Logf("result returned raw: %v", result)
+				v := result[0]
+				if !testCase.AllowDifferentType {
+					assert.Equal(t, reflect.TypeOf(testCase.ExpectedValue).Kind(), reflect.TypeOf(v).Kind())
+				}
+				applyTestType(t, testCase.TestType, v, testCase.ExpectedValue, fmt.Sprintf("JSONPATH query: %s", testCase.JsonPathToCompare))
+			}
+		})
+	}
+}
+
+func applyTestType(t *testing.T, testType TestType, actual interface{}, expected interface{}, additionalMessage string) {
+	switch testType {
+	case ShouldContain:
+		msg := fmt.Sprintf("Output did not contains the expected value. Expected: %v, Actual: %v, %s", expected, actual, additionalMessage)
+		assert.Contains(t, actual, expected, msg)
+	case ShouldNOTContain:
+		msg := fmt.Sprintf("Output is expected NOT to contains the value. Expected: %v, Actual: %v, %s", expected, actual, additionalMessage)
+		assert.NotContains(t, actual, expected, msg)
+	case ShouldBeEqual:
+		msg := fmt.Sprintf("Output did not match with expected value. Expected: %v, Actual: %v, %s", expected, actual, additionalMessage)
+		assert.EqualValuesf(t, actual, expected, msg)
+	}
 }
 
 func compareValues(t *testing.T, actual interface{}, expected, variableName string) {
