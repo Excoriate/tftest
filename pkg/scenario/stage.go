@@ -24,10 +24,10 @@ const (
 	ShouldBeEqual
 )
 
-type JsonPathTestCases struct {
+type JSONPathTestCases struct {
 	TestName           string
 	ExpectedValue      interface{}
-	JsonPathToCompare  string
+	JSONPathToCompare  string
 	AllowDifferentType bool
 	TestType           TestType
 }
@@ -185,18 +185,18 @@ func (c *StageClient) PlanWithSpecificVariableValueToExpect(t *testing.T, option
 	compareValues(t, actualValue, expectedValue, variable)
 }
 
-// PlanAndAssertJsonWithJsonPath performs JSON path planning and assertion in Go testing.
+// PlanAndAssertJSONWithJSONPath performs JSON path planning and assertion in Go testing.
 //
 // t *testing.T: Testing object
 // options *terraform.Options: Terraform options
-// testCases []JsonPathTestCases: Array of JSON path test cases
-func (c *StageClient) PlanAndAssertJsonWithJsonPath(t *testing.T, options *terraform.Options, testCases []JsonPathTestCases) {
+// testCases []JSONPathTestCases: Array of JSON path test cases
+func (c *StageClient) PlanAndAssertJSONWithJSONPath(t *testing.T, options *terraform.Options, testCases []JSONPathTestCases) {
 	jsonPlan := terraform.InitAndPlanAndShow(t, options)
 
 	for _, testCase := range testCases {
 		t.Run(testCase.TestName, func(t *testing.T) {
 			var result []interface{}
-			k8s.UnmarshalJSONPath(t, []byte(jsonPlan), testCase.JsonPathToCompare, &result)
+			k8s.UnmarshalJSONPath(t, []byte(jsonPlan), testCase.JSONPathToCompare, &result)
 			assert.NotNil(t, result)
 
 			// if expected is slice then it's ok to compare entire slice
@@ -209,7 +209,7 @@ func (c *StageClient) PlanAndAssertJsonWithJsonPath(t *testing.T, options *terra
 				if !testCase.AllowDifferentType {
 					assert.Equal(t, reflect.TypeOf(testCase.ExpectedValue).Kind(), reflect.TypeOf(v).Kind())
 				}
-				applyTestType(t, testCase.TestType, v, testCase.ExpectedValue, fmt.Sprintf("JSONPATH query: %s", testCase.JsonPathToCompare))
+				applyTestType(t, testCase.TestType, v, testCase.ExpectedValue, fmt.Sprintf("JSONPATH query: %s", testCase.JSONPathToCompare))
 			}
 		})
 	}
