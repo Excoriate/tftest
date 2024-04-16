@@ -7,6 +7,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/sns"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
 
@@ -16,6 +17,7 @@ import (
 type AWSAdapter interface {
 	NewSNS() *sns.Client
 	NewSQS() *sqs.Client
+	NewS3() *s3.Client
 }
 
 type AWS struct {
@@ -45,4 +47,8 @@ func (a *AWS) NewSNS() *sns.Client {
 
 func (a *AWS) NewSQS() *sqs.Client {
 	return sqs.NewFromConfig(a.cfg)
+}
+
+func (a *AWS) NewS3() *s3.Client {
+	return s3.NewFromConfig(a.cfg)
 }
