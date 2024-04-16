@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.11](https://github.com/Excoriate/tftest/compare/v0.0.10...v0.0.11) (2024-04-16)
+
+
+### Features
+
+* add support for JSONPath testcases ([#18](https://github.com/Excoriate/tftest/issues/18)) ([cb46401](https://github.com/Excoriate/tftest/commit/cb46401affebe2dbfe2fe72d19e7c0650f9e7ca9))
+
 ## [0.0.10](https://github.com/Excoriate/tftest/compare/v0.0.9...v0.0.10) (2024-04-02)
 
 
