@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.13](https://github.com/Excoriate/tftest/compare/v0.0.12...v0.0.13) (2024-04-17)
+
+
+### Refactoring
+
+* enhance git repo validator function ([b791280](https://github.com/Excoriate/tftest/commit/b7912804beed53ff48c05cde9695b1b839f6a7da))
+* expose APIs for finding git repo by different methods ([17e7960](https://github.com/Excoriate/tftest/commit/17e7960964a2e9c815674fde606cdbe2c560e2d9))
+
 ## [0.0.12](https://github.com/Excoriate/tftest/compare/v0.0.11...v0.0.12) (2024-04-16)
 
 
