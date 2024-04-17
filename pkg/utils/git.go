@@ -12,6 +12,9 @@ func IsAGitRepository(repoRoot string, levels int) (gitRoot, subDir string, err 
 	if repoRoot == "" {
 		return "", "", fmt.Errorf("directory path cannot be empty")
 	}
+	if levels < 0 {
+		return "", "", fmt.Errorf("levels must be non-negative")
+	}
 
 	originalPath, err := filepath.Abs(repoRoot)
 	if err != nil {
@@ -24,15 +27,16 @@ func IsAGitRepository(repoRoot string, levels int) (gitRoot, subDir string, err 
 
 	currentPath := originalPath
 	for i := 0; i <= levels; i++ {
-		_, err := os.Stat(filepath.Join(currentPath, ".git"))
-		if err == nil {
-			relPath, _ := filepath.Rel(currentPath, originalPath)
+		gitDir := filepath.Join(currentPath, ".git")
+		if info, err := os.Stat(gitDir); err == nil && info.IsDir() {
+			relPath, err := filepath.Rel(currentPath, originalPath)
+			if err != nil {
+				return "", "", fmt.Errorf("failed to calculate relative path from %s to %s: %v", currentPath, originalPath, err)
+			}
 			return currentPath, relPath, nil
-		}
-
-		if !os.IsNotExist(err) {
+		} else if !os.IsNotExist(err) {
 			// If the error is not because the .git directory doesn't exist, return it.
-			return "", "", fmt.Errorf("unexpected error when checking the directory %s: %v", currentPath, err)
+			return "", "", fmt.Errorf("unexpected error when checking the directory %s: %v", gitDir, err)
 		}
 
 		// Move up one directory level
