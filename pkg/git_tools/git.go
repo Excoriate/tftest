@@ -1,7 +1,8 @@
-package utils
+package git_tools
 
 import (
 	"fmt"
+	"github.com/Excoriate/tftest/pkg/utils"
 	"os"
 	"path/filepath"
 )
@@ -21,7 +22,7 @@ func IsAGitRepository(repoRoot string, levels int) (gitRoot, subDir string, err 
 		return "", "", fmt.Errorf("failed to resolve absolute path for %s: %v", repoRoot, err)
 	}
 
-	if err := DirExistAndHasContent(originalPath); err != nil {
+	if err := utils.DirExistAndHasContent(originalPath); err != nil {
 		return "", "", err
 	}
 
