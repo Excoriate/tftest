@@ -7,17 +7,30 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 
+	awscfg "github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/autoscaling"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/aws-sdk-go-v2/service/ecs"
+	"github.com/aws/aws-sdk-go-v2/service/eks"
+	"github.com/aws/aws-sdk-go-v2/service/iam"
+	"github.com/aws/aws-sdk-go-v2/service/rds"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/sns"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
-
-	awscfg "github.com/aws/aws-sdk-go-v2/config"
 )
 
 type AWSAdapter interface {
 	NewSNS() *sns.Client
 	NewSQS() *sqs.Client
 	NewS3() *s3.Client
+	NewRDS() *rds.Client
+	NewEC2() *ec2.Client
+	NewIAM() *iam.Client
+	NewDynamoDB() *dynamodb.Client
+	NewAutoScaling() *autoscaling.Client
+	NewECS() *ecs.Client
+	NewEKS() *eks.Client
 }
 
 type AWS struct {
@@ -51,4 +64,32 @@ func (a *AWS) NewSQS() *sqs.Client {
 
 func (a *AWS) NewS3() *s3.Client {
 	return s3.NewFromConfig(a.cfg)
+}
+
+func (a *AWS) NewRDS() *rds.Client {
+	return rds.NewFromConfig(a.cfg)
+}
+
+func (a *AWS) NewEC2() *ec2.Client {
+	return ec2.NewFromConfig(a.cfg)
+}
+
+func (a *AWS) NewIAM() *iam.Client {
+	return iam.NewFromConfig(a.cfg)
+}
+
+func (a *AWS) NewDynamoDB() *dynamodb.Client {
+	return dynamodb.NewFromConfig(a.cfg)
+}
+
+func (a *AWS) NewAutoScaling() *autoscaling.Client {
+	return autoscaling.NewFromConfig(a.cfg)
+}
+
+func (a *AWS) NewECS() *ecs.Client {
+	return ecs.NewFromConfig(a.cfg)
+}
+
+func (a *AWS) NewEKS() *eks.Client {
+	return eks.NewFromConfig(a.cfg)
 }
