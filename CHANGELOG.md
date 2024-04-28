@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.14](https://github.com/Excoriate/tftest/compare/v0.0.13...v0.0.14) (2024-04-28)
+
+
+### Features
+
+* **cloudprovider:** add support for new AWS services ([#25](https://github.com/Excoriate/tftest/issues/25)) ([f70dae1](https://github.com/Excoriate/tftest/commit/f70dae1b2ad10d56db8daecb8f394dfd2e424424))
+
 ## [0.0.13](https://github.com/Excoriate/tftest/compare/v0.0.12...v0.0.13) (2024-04-17)
 
 
