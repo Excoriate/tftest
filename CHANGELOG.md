@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.16](https://github.com/Excoriate/tftest/compare/v0.0.15...v0.0.16) (2024-05-23)
+
+
+### Refactoring
+
+* Add ability to specify plan file path in options ([#35](https://github.com/Excoriate/tftest/issues/35)) ([cf3655d](https://github.com/Excoriate/tftest/commit/cf3655d008872973a719effbf0a5aceff129a1c3))
+
 ## [0.0.15](https://github.com/Excoriate/tftest/compare/v0.0.14...v0.0.15) (2024-05-23)
 
 
