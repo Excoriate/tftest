@@ -31,6 +31,8 @@ type Options struct {
 	retryOptions *retryableOptions
 	//envVars is the environment variables
 	envVars map[string]string
+	// planFile is the path to the plan file
+	planFile string
 }
 
 type retryableOptions struct {
@@ -72,6 +74,13 @@ func (c *Client) GetAWS() cloudprovider.AWSAdapter {
 func WithVars(vars map[string]interface{}) OptFn {
 	return func(o *Options) error {
 		o.vars = vars
+		return nil
+	}
+}
+
+func WithPlanFile(planFile string) OptFn {
+	return func(o *Options) error {
+		o.planFile = planFile
 		return nil
 	}
 }
@@ -186,9 +195,12 @@ func NewWithOptions(t *testing.T, workdir string, opts ...OptFn) (*Client, error
 
 	tfOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: tfDir,
-		PlanFilePath: filepath.Join(tfDir, DefaultPlanOutput),
 		NoColor:      true,
 	})
+
+	if o.planFile != "" {
+		tfOptions.PlanFilePath = filepath.Join(tfDir, o.planFile)
+	}
 
 	if o.enableAWS {
 		cfg, err := cloudprovider.NewAWS(o.awsRegion)
@@ -231,7 +243,6 @@ func New(t *testing.T, workdir string) (*Client, error) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: workdir,
 		NoColor:      true,
-		PlanFilePath: filepath.Join(workdir, DefaultPlanOutput),
 	})
 
 	return &Client{
