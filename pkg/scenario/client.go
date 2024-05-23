@@ -222,7 +222,7 @@ func New(t *testing.T, workdir string) (*Client, error) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: workdir,
 		NoColor:      true,
-		PlanFilePath: "plan.out",
+		PlanFilePath: DefaultPlanOutput,
 	})
 
 	return &Client{
