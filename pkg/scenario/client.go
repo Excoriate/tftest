@@ -175,11 +175,11 @@ func NewWithOptions(t *testing.T, workdir string, opts ...OptFn) (*Client, error
 
 	c := &Client{}
 
-	tfOptions := &terraform.Options{
+	tfOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: tfDir,
 		PlanFilePath: DefaultPlanOutput,
 		NoColor:      true,
-	}
+	})
 
 	if o.enableAWS {
 		cfg, err := cloudprovider.NewAWS(o.awsRegion)
