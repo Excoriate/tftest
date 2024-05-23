@@ -29,6 +29,8 @@ type Options struct {
 	isParallel bool
 	// retryOptions
 	retryOptions *retryableOptions
+	//envVars is the environment variables
+	envVars map[string]string
 }
 
 type retryableOptions struct {
@@ -102,6 +104,13 @@ func WithRetry(retryableErrors map[string]string, timeBetweenRetries time.Durati
 func WithParallel() OptFn {
 	return func(o *Options) error {
 		o.isParallel = true
+		return nil
+	}
+}
+
+func WithEnvVars(envVars map[string]string) OptFn {
+	return func(o *Options) error {
+		o.envVars = envVars
 		return nil
 	}
 }
