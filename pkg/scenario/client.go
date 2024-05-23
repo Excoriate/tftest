@@ -186,7 +186,7 @@ func NewWithOptions(t *testing.T, workdir string, opts ...OptFn) (*Client, error
 
 	tfOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: tfDir,
-		PlanFilePath: DefaultPlanOutput,
+		PlanFilePath: filepath.Join(tfDir, DefaultPlanOutput),
 		NoColor:      true,
 	})
 
@@ -231,7 +231,7 @@ func New(t *testing.T, workdir string) (*Client, error) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: workdir,
 		NoColor:      true,
-		PlanFilePath: DefaultPlanOutput,
+		PlanFilePath: filepath.Join(workdir, DefaultPlanOutput),
 	})
 
 	return &Client{
