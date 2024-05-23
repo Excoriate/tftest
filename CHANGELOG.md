@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.0.15](https://github.com/Excoriate/tftest/compare/v0.0.14...v0.0.15) (2024-05-23)
+
+
+### Features
+
+* Add WithEnvVars option to pass environment variables ([#33](https://github.com/Excoriate/tftest/issues/33)) ([fd75143](https://github.com/Excoriate/tftest/commit/fd75143886d441c9dd45659b322f9b928690f13c))
+* **scenario:** update NewWithOptions function to use default retryable errors with Terraform options ([#31](https://github.com/Excoriate/tftest/issues/31)) ([32a2381](https://github.com/Excoriate/tftest/commit/32a23810a7ed9a3acfe06938cef6fb67a36a5d2d))
+
+
+### Bug Fixes
+
+* Fix PlanFilePath to use absolute path instead of relative path ([#34](https://github.com/Excoriate/tftest/issues/34)) ([9e91a96](https://github.com/Excoriate/tftest/commit/9e91a964c6b74ec2f437cc6a59be266a7858eda3))
+
+
+### Refactoring
+
+* **client:** Use constant for plan output file path in New constructor. ([#30](https://github.com/Excoriate/tftest/issues/30)) ([b7e90f7](https://github.com/Excoriate/tftest/commit/b7e90f78c8d18dcfa19540643f140f95fe7c26fa))
+
 ## [0.0.14](https://github.com/Excoriate/tftest/compare/v0.0.13...v0.0.14) (2024-04-28)
 
 
