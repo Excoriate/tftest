@@ -2,13 +2,31 @@ package git_tools
 
 import (
 	"fmt"
-	"github.com/Excoriate/tftest/pkg/utils"
 	"os"
 	"path/filepath"
+
+	"github.com/Excoriate/tftest/pkg/utils"
 )
 
-// IsAGitRepository checks if the given directory or any of its parent directories up to `levels` is a git repository.
+// IsAGitRepository checks if the given directory or any of its parent directories up to `levels` is a Git repository.
 // It returns the git root directory, the subdirectory passed relative to the git root, and any error encountered.
+//
+// Parameters:
+//   - repoRoot: The directory to start the search from.
+//   - levels: The number of parent directories to check upwards.
+//
+// Returns:
+//   - gitRoot: The absolute path to the root of the Git repository.
+//   - subDir: The relative path from the Git root to the original directory.
+//   - err: An error if the Git repository root could not be found or if any other error occurred.
+//
+// Example:
+//
+//	gitRoot, subDir, err := IsAGitRepository("/path/to/start", 5)
+//	if err != nil {
+//	    log.Fatalf("Error finding Git repository: %v", err)
+//	}
+//	fmt.Printf("Git repository root: %s, Subdirectory: %s\n", gitRoot, subDir)
 func IsAGitRepository(repoRoot string, levels int) (gitRoot, subDir string, err error) {
 	if repoRoot == "" {
 		return "", "", fmt.Errorf("directory path cannot be empty")

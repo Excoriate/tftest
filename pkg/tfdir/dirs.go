@@ -10,10 +10,26 @@ import (
 	"github.com/gruntwork-io/terratest/modules/git"
 )
 
-// GetRelativePathFromGitRepo returns the relative path to the git repo root.
-// It is used to get the relative path to the git repo root for the Terraform directory.
-// If the Terraform directory is an absolute path, it returns the relative path to the git repo root.
-// If the Terraform directory is a relative path, it returns the relative path to the git repo root.
+// GetRelativePathFromGitRepo returns the relative path to the Git repository root for the specified Terraform directory.
+// If the Terraform directory is an absolute path, it returns the relative path to the Git repository root.
+// If the Terraform directory is a relative path, it returns the relative path to the Git repository root.
+//
+// Parameters:
+//   - tfDir: The path to the Terraform directory. This parameter is required.
+//   - t: The testing instance.
+//
+// Returns:
+//   - relativePath: The relative path to the Git repository root from the Terraform directory.
+//   - repoRoot: The root directory of the Git repository.
+//   - err: An error if the relative path to the Git repository root could not be determined.
+//
+// Example:
+//
+//	relativePath, repoRoot, err := GetRelativePathFromGitRepo("/path/to/terraform/dir", t)
+//	if err != nil {
+//	    t.Fatalf("Error getting relative path from Git repo: %v", err)
+//	}
+//	fmt.Printf("Relative Path: %s, Repo Root: %s\n", relativePath, repoRoot)
 func GetRelativePathFromGitRepo(tfDir string, t *testing.T) (relativePath, repoRoot string, err error) {
 	if tfDir == "" {
 		return "", "", fmt.Errorf("tfDir is required")

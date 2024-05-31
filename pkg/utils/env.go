@@ -5,6 +5,18 @@ import (
 	"strings"
 )
 
+// cleanValue cleans and unescapes the provided string value.
+//
+// Parameters:
+//   - value: The string value to clean and unescape.
+//
+// Returns:
+//   - string: The cleaned and unescaped string.
+//
+// Example:
+//
+//	cleanedValue := cleanValue("\"example\\nvalue\"")
+//	fmt.Printf("Cleaned value: %s\n", cleanedValue)
 func cleanValue(value string) string {
 	// Remove leading and trailing double quotes
 	cleanedValue := strings.Trim(value, "\"")
@@ -15,6 +27,15 @@ func cleanValue(value string) string {
 	return cleanedValue
 }
 
+// GetAllEnvVarsFromHost retrieves all environment variables from the host and returns them as a map.
+//
+// Returns:
+//   - map[string]string: A map containing all environment variables from the host.
+//
+// Example:
+//
+//	envVars := GetAllEnvVarsFromHost()
+//	fmt.Printf("Host environment variables: %v\n", envVars)
 func GetAllEnvVarsFromHost() map[string]string {
 	envVars := make(map[string]string)
 
@@ -28,11 +49,25 @@ func GetAllEnvVarsFromHost() map[string]string {
 	return envVars
 }
 
+// EnvVar represents an environment variable with a name and value.
 type EnvVar struct {
 	Name  string
 	Value string
 }
 
+// GetAllEnvVarsFromHostAsStruct retrieves the specified environment variables from the host and returns them as a slice of EnvVar structs.
+//
+// Parameters:
+//   - envVarNames: A list of environment variable names to retrieve.
+//
+// Returns:
+//   - []EnvVar: A slice of EnvVar structs representing the specified environment variables.
+//
+// Example:
+//
+//	envVarNames := []string{"PATH", "HOME"}
+//	envVars := GetAllEnvVarsFromHostAsStruct(envVarNames)
+//	fmt.Printf("Host environment variables as structs: %v\n", envVars)
 func GetAllEnvVarsFromHostAsStruct(envVarNames []string) []EnvVar {
 	var envVars []EnvVar
 	envs := make(map[string]bool)
