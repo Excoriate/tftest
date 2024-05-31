@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    devenv.url = "github:cachix/devenv";
+    devenv.url = "github:cachix/devenv/v0.6.3";
     dagger.url = "github:dagger/nix";
     dagger.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -37,7 +37,6 @@
               golangci-lint
               just
               pre-commit
-              task
               makeWrapper
               yamllint
               markdownlint-cli
@@ -45,8 +44,10 @@
               git
               semver-tool
               jq
+              yq
               yq-go
               moreutils
+              terraform
             ];
 
             # https://github.com/cachix/devenv/issues/528#issuecomment-1556108767
