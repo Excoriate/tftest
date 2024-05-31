@@ -2,11 +2,12 @@ package scenario
 
 import (
 	"fmt"
-	"github.com/gruntwork-io/terratest/modules/k8s"
-	"github.com/stretchr/testify/assert"
 	"reflect"
 	"strconv"
 	"testing"
+
+	"github.com/gruntwork-io/terratest/modules/k8s"
+	"github.com/stretchr/testify/assert"
 
 	tfjson "github.com/hashicorp/terraform-json"
 
@@ -41,6 +42,7 @@ type Stage interface {
 	PlanStageWithAnySortOfChanges(t *testing.T, options *terraform.Options)
 	PlanStageExpectedNoChanges(t *testing.T, options *terraform.Options)
 	PlanWithSpecificResourcesThatWillChange(t *testing.T, options *terraform.Options, resources []string)
+	PlanWithSpecificResourcesThatShouldNotChange(t *testing.T, options *terraform.Options, resources []string)
 	PlanWithResourcesExpectedToBeCreated(t *testing.T, options *terraform.Options, resources []string)
 	PlanWithResourcesExpectedToBeDeleted(t *testing.T, options *terraform.Options, resources []string)
 	PlanWithResourcesExpectedToBeUpdated(t *testing.T, options *terraform.Options, resources []string)
@@ -131,6 +133,30 @@ func (c *StageClient) PlanWithSpecificResourcesThatWillChange(t *testing.T, opti
 	// Verify that all specified resources are planned for change
 	for resource, changed := range resourceChangeFound {
 		require.Truef(t, changed, "Resource %s did not change but was expected to", resource)
+	}
+}
+
+func (c *StageClient) PlanWithSpecificResourcesThatShouldNotChange(t *testing.T, options *terraform.Options, resources []string) {
+	out, err := terraform.InitAndPlanAndShowWithStructE(t, options)
+	require.NoErrorf(t, err, "Failed to plan terraform: %s", out)
+
+	resourceChangeFound := make(map[string]bool)
+	for _, resource := range resources {
+		resourceChangeFound[resource] = false
+	}
+
+	for _, change := range out.RawPlan.ResourceChanges {
+		if _, exists := resourceChangeFound[change.Address]; exists {
+			if change.Change.Actions.Create() || change.Change.Actions.Delete() || change.Change.Actions.Update() {
+				// Mark the resource as found and changed
+				resourceChangeFound[change.Address] = true
+			}
+		}
+	}
+
+	// Verify that all specified resources are planned for change
+	for resource, changed := range resourceChangeFound {
+		require.Falsef(t, changed, "Resource %s changed but was expected not to", resource)
 	}
 }
 
@@ -239,7 +265,7 @@ func compareValues(t *testing.T, actual interface{}, expected, variableName stri
 
 	switch actualType.Kind() {
 	case reflect.String:
-		require.Equalf(t, expected, actual, "Variable %s does not have the expected value", variableName)
+		assert.Equalf(t, expected, actual, "Variable %s does not have the expected value", variableName)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		expectedInt, err := strconv.ParseInt(expected, 10, 64)
 		require.NoErrorf(t, err, "Expected value for variable %s is not an integer: %s", variableName, expected)
