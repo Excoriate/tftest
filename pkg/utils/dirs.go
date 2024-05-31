@@ -6,6 +6,21 @@ import (
 	"path/filepath"
 )
 
+// IsValidDirE checks if the given path is a valid directory.
+//
+// Parameters:
+//   - path: The path to check.
+//
+// Returns:
+//   - error: An error if the path is not a valid directory.
+//
+// Example:
+//
+//	err := IsValidDirE("/path/to/check")
+//	if err != nil {
+//	    log.Fatalf("Error: %v", err)
+//	} else {
+//	    fmt.Println("The path is a valid directory.")
 func IsValidDirE(path string) error {
 	// Clean the path to remove any unnecessary parts.
 	cleanPath := filepath.Clean(path)
@@ -31,6 +46,21 @@ func IsValidDirE(path string) error {
 	return nil
 }
 
+// DirExistAndHasContent checks if the given directory exists and has content.
+//
+// Parameters:
+//   - dirPath: The path to the directory to check.
+//
+// Returns:
+//   - error: An error if the directory does not exist or if there is any other issue.
+//
+// Example:
+//
+//	err := DirExistAndHasContent("/path/to/dir")
+//	if err != nil {
+//	    log.Fatalf("Error: %v", err)
+//	} else {
+//	    fmt.Println("The directory exists and has content.")
 func DirExistAndHasContent(dirPath string) error {
 	if dirPath == "" {
 		return fmt.Errorf("directory path cannot be empty")

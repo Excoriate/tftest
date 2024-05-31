@@ -8,8 +8,31 @@ import (
 )
 
 // ProcessTemplFile processes a template file with the provided data and writes the output to the destination file.
-// It returns an error if any of the operations fail.
-// The function map is used to define custom functions that can be called from the template.
+// It returns an error if any of the operations fail. The function map is used to define custom functions
+// that can be called from the template.
+//
+// Parameters:
+//   - templatePath: The path to the template file.
+//   - destPath: The path to the destination file where the processed template will be written.
+//   - funcMap: A map of custom functions that can be called from the template.
+//   - data: The data to be passed to the template for processing.
+//
+// Returns:
+//   - error: An error if any of the operations fail.
+//
+// Example:
+//
+//	funcMap := template.FuncMap{
+//	    "toUpperCase": strings.ToUpper,
+//	}
+//	data := map[string]string{
+//	    "Name": "John Doe",
+//	}
+//	err := ProcessTemplFile("template.tmpl", "output.txt", funcMap, data)
+//	if err != nil {
+//	    log.Fatalf("Error processing template file: %v", err)
+//	}
+//	fmt.Println("Template processed successfully.")
 func ProcessTemplFile(templatePath, destPath string, funcMap template.FuncMap, data interface{}) error {
 	content, err := os.ReadFile(templatePath)
 	if err != nil {
