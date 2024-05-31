@@ -94,3 +94,24 @@ func HasTFVarFiles(path string) (bool, error) {
 
 	return len(files) > 0, nil
 }
+
+func IsAHCLFile(path string) error {
+	fileInfo, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		return fmt.Errorf("the terraform variable file does not exist: %s", path)
+	}
+
+	if fileInfo.IsDir() {
+		return fmt.Errorf("the terraform variable file is a directory: %s", path)
+	}
+
+	if filepath.Ext(path) != ".hcl" {
+		return fmt.Errorf("the terraform variable file does not have a .hcl extension: %s", path)
+	}
+
+	if err := utils.FileHasContent(path); err != nil {
+		return fmt.Errorf("the terraform variable file is empty: %s", path)
+	}
+
+	return nil
+}
