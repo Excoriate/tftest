@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.17](https://github.com/Excoriate/tftest/compare/v0.0.16...v0.0.17) (2024-05-31)
+
+
+### Features
+
+* Add validation function for Terragrunt modules ([#40](https://github.com/Excoriate/tftest/issues/40)) ([fbe6175](https://github.com/Excoriate/tftest/commit/fbe61756bd2eb5a20f709d22e785d61bfaf903ad))
+* **validation:** Add function to check if a file is a valid HCL file ([#39](https://github.com/Excoriate/tftest/issues/39)) ([115b9ec](https://github.com/Excoriate/tftest/commit/115b9ec58037ea76f3ece58a4abf6fb246d1bab7))
+* **validation:** Add functions to check for Terragrunt and .hcl file validity ([#42](https://github.com/Excoriate/tftest/issues/42)) ([2bafbaa](https://github.com/Excoriate/tftest/commit/2bafbaaf5033178c636fe6c4c462094d6caeff1a))
+
+
+### Refactoring
+
+* **stage:** Change assert to require in compareValues function ([#37](https://github.com/Excoriate/tftest/issues/37)) ([8e3832f](https://github.com/Excoriate/tftest/commit/8e3832f096c9c8400191ffe689bf628f4b1e0ef0))
+
 ## [0.0.16](https://github.com/Excoriate/tftest/compare/v0.0.15...v0.0.16) (2024-05-23)
 
 
